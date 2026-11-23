@@ -1570,6 +1570,17 @@ final class HostApp: NSObject {
         mjpegHub.submit(last)
     }
 
+    /// Safety-net restart interval for a *silent* ScreenCaptureKit stream, in seconds.
+    /// Static desktops legitimately deliver no frames; a short timeout causes an
+    /// SCStream restart loop (macOS screen-sharing indicator flickers). Default: 5 min.
+    private var captureIdleRestartSeconds: Double {
+        if let raw = ProcessInfo.processInfo.environment["HALOLINK_CAPTURE_IDLE_RESTART"],
+           let value = Double(raw) {
+            return max(0, value)
+        }
+        return 300
+    }
+
     private func installWatchdogTimer() {
         let timer = DispatchSource.makeTimerSource(queue: .main)
         timer.schedule(deadline: .now() + 1.0, repeating: 1.0)
@@ -1596,8 +1607,15 @@ final class HostApp: NSObject {
             if hasConsumers {
                 self.refreshFromCachedFrame()
             }
-            if !self.options.synthetic, gap > 6.0,
-               now - self.lastCaptureRestartTime >= 12.0 {
+            // Idle desktop: ScreenCaptureKit is change-driven, so a static screen
+            // legitimately produces no frames. Restarting the SCStream on idle makes
+            // macOS re-arm the "screen sharing" indicator every few seconds (visible
+            // flicker) and is also wasteful. Keep only a very long safety net; real
+            // failures are handled by the SCStream error delegate below.
+            // Override with HALOLINK_CAPTURE_IDLE_RESTART=<seconds> (0 = never).
+            if !self.options.synthetic, gap > self.captureIdleRestartSeconds,
+               self.captureIdleRestartSeconds > 0,
+               now - self.lastCaptureRestartTime >= self.captureIdleRestartSeconds {
                 self.lastCaptureRestartTime = now
                 self.capture.restartInBackground(reason: String(format:
                     "no captured frames for %.0fs", gap))
