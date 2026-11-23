@@ -1,0 +1,4 @@
+module VDBridge {
+    header "bridge.h"
+    export *
+}

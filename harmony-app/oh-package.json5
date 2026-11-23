@@ -1,0 +1,10 @@
+{
+  "modelVersion": "6.0.1",
+  "name": "halolink",
+  "version": "0.1.0",
+  "description": "HaloLink: turn a HarmonyOS tablet into a macOS extended display",
+  "main": "",
+  "author": "halolink",
+  "license": "Apache-2.0",
+  "dependencies": {}
+}

@@ -1,0 +1,19 @@
+# build outputs
+/build/
+/entry/build/
+/oh_modules/
+/entry/oh_modules/
+/.hvigor/
+/.idea/
+/local.properties
+/hvigor/hvigor/node_modules/
+
+# local signing material / test artifacts (never commit secrets)
+/sign/out/
+/sign/agc/
+/test/stream.h264
+/*.jpeg
+/*.png.tmp
+
+# native build cache
+/entry/.cxx/

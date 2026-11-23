@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "0.1.0",
+  "description": "HaloLink entry module",
+  "main": "",
+  "author": "halolink",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "libdecoder.so": "file:./src/main/cpp/types/libdecoder"
+  }
+}

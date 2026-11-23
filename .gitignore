@@ -1,0 +1,38 @@
+# macOS build artifacts
+.DS_Store
+macos-host/.build/
+macos-host/HaloLink.app/
+macos-host/test-artifacts/
+macos-host/*.png
+
+# HarmonyOS build artifacts / generated files
+harmony-app/.hvigor/
+harmony-app/oh_modules/
+harmony-app/entry/.cxx/
+harmony-app/entry/build/
+harmony-app/build/
+harmony-app/entry/.preview/
+harmony-app/local.properties
+harmony-app/.idea/
+harmony-app/*.hap
+harmony-app/entry/build/
+
+# Test media streams (large generated H.264 samples)
+harmony-app/test/*.h264
+harmony-app/test/stream*.h264
+
+# Private signing material / device-specific certificates
+signing/
+harmony-app/sign/out/
+
+# Local evidence screenshots/logs (may contain personal content)
+evidence/
+*/evidence/
+harmony-app/evidence/
+demo/
+macos-host/test-artifacts/
+
+# Logs / OS noise
+*.log
+/tmp/
+__MACOSX/

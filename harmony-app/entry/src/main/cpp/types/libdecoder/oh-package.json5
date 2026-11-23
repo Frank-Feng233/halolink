@@ -1,0 +1,6 @@
+{
+  "name": "libdecoder.so",
+  "types": "./index.d.ts",
+  "version": "0.1.0",
+  "description": "HaloLink OH_VideoDecoder NAPI bridge"
+}
